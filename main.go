@@ -14,11 +14,17 @@ func main() {
 	restful.Add(ws)
 
 	log.Println("Starting server")
-	http.ListenAndServe(":8080", nil)
+
+	err := http.ListenAndServe(":8080", nil)
+
+	if err != nil {
+		log.Fatal("ListenAndServe:", err)
+	}
 }
 
 func registerRoutes(ws *restful.WebService) {
 	log.Println("Registering routes")
+
 	healthController := controllers.NewHealthController()
 	healthController.RegisterRoutes(ws)
 }
